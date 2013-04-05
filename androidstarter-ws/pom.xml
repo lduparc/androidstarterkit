@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lomoussw.androidstarter</groupId>
+		<artifactId>androidstarter-parent</artifactId>
+		<version>0.9</version>
+	</parent>
+	<artifactId>androidstarter-ws</artifactId>
+	<packaging>war</packaging>
+	<name>AndroidStarter Web Services</name>
+	<url>http://127.0.0.1:8080/androidstarter-ws</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.lomoussw.androidstarter</groupId>
+			<artifactId>androidstarter-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<!--<pluginRepositories>-->
+		<!--<pluginRepository>-->
+			<!--<id>cloudbees-public-release</id>-->
+			<!--<url>http://repository-cloudbees.forge.cloudbees.com/public-release</url>-->
+			<!--<releases>-->
+				<!--<enabled>true</enabled>-->
+			<!--</releases>-->
+			<!--<snapshots>-->
+				<!--<enabled>false</enabled>-->
+			<!--</snapshots>-->
+		<!--</pluginRepository>-->
+	<!--</pluginRepositories>-->
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+				<excludes>
+					<exclude>logback.xml</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>logback.xml</include>
+				</includes>
+				<excludes>
+					<exclude>*.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<finalName>androidstarter-ws</finalName>
+		<!--<plugins>-->
+			<!--<plugin>-->
+				<!--<groupId>com.cloudbees</groupId>-->
+				<!--<artifactId>bees-maven-plugin</artifactId>-->
+				<!--<version>1.3.2</version>-->
+			<!--</plugin>-->
+		<!--</plugins>-->
+	</build>
+
+</project>

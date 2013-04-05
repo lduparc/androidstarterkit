@@ -1,6 +1,24 @@
-*.class
+bin
+gen
+out
+local.properties
 
-# Package Files #
-*.jar
-*.war
-*.ear
+build_versions
+csocso
+
+.classpath
+.project
+
+.idea/
+*.ipr
+*.iws
+*.iml
+target/
+tmp/
+.DS_Store
+
+res/drawable-*
+
+.wapp.yml
+wapps
+build.xml.bak*
