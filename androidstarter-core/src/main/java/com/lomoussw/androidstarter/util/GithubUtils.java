@@ -15,10 +15,10 @@ public class GithubUtils {
     public static final String ACCESS_TOKEN = "accessToken";
     private static final String PROTOCOL = "http";
     private static final String HOSTNAME = "127.0.0.1";
-    private static final int HOSTPORT = 8080;
+    private static final int HOSTPORT = 8181;
 
     public static URI createAndroidKickstartRUriWithAccessToken(String accessToken, String parameterName, String parameterValue) {
-        return createAndroidKickstartRUri(new String[]{ACCESS_TOKEN, parameterName}, new String[]{accessToken, parameterValue});
+        return createAndroidKickstartRUriGitToken(new String[]{ACCESS_TOKEN, parameterName}, new String[]{accessToken, parameterValue});
     }
 
     public static URI createAndroidKickstartRUri(String parameterName, String parameterValue) {
@@ -27,10 +27,6 @@ public class GithubUtils {
 
     public static URI createAndroidKickstartRUriGit(String parameterName, String parameterValue) {
         return createAndroidKickstartRUriGit(new String[]{parameterName}, new String[]{parameterValue});
-    }
-
-    public static URI createAndroidKickstartRUriGitToken(String parameterName, String parameterValue) {
-        return createAndroidKickstartRUri(new String[]{parameterName}, new String[]{parameterValue});
     }
 
     public static URI createAndroidKickstartRUri(String[] parameterNames, String[] parameterValues) {
@@ -45,7 +41,7 @@ public class GithubUtils {
 
     public static URI createAndroidKickstartRUriGit(String[] parameterNames, String[] parameterValues) {
         try {
-            return new URI(PROTOCOL, null, HOSTNAME, HOSTPORT , "/androidstarter-ws",
+            return new URI(PROTOCOL, null, HOSTNAME, HOSTPORT , "/android",
                     createParametersString(parameterNames, parameterValues), null);
         } catch (URISyntaxException e) {
             LOGGER.error("Couldn't create URI : {}", e.getMessage());
@@ -55,10 +51,10 @@ public class GithubUtils {
 
     public static URI createAndroidKickstartRUriGitToken(String[] parameterNames, String[] parameterValues) {
         try {
-            return new URI(PROTOCOL, null, HOSTNAME, HOSTPORT , "/androidstarter-ws/token",
-                    createParametersString(parameterNames, parameterValues), null);
+            return new URI(PROTOCOL, null, HOSTNAME, HOSTPORT , "/android",
+                    createParametersStringGitToken(parameterNames, parameterValues), null);
         } catch (URISyntaxException e) {
-            LOGGER.error("Couldn't create URI : {}", e.getMessage());
+            LOGGER.error("Couldnreturn Response.serverError().build();'t create URI : {}", e.getMessage());
         }
         return null;
     }
@@ -81,4 +77,11 @@ public class GithubUtils {
         return builder.deleteCharAt(builder.length() - 1).toString();
     }
 
+    private static String createParametersStringGitToken(String[] parameterNames, String[] parameterValues) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < parameterNames.length; i++) {
+            builder.append(parameterNames[i]).append("=").append(parameterValues[i]).append("&");
+        }
+        return builder.deleteCharAt(builder.length() - 1).toString();
+    }
 }

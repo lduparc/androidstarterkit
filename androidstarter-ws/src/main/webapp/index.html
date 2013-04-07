@@ -6,7 +6,7 @@
 <!--[if gt IE 8]>&lt;!&ndash;>
 <html class="no-js">
 <!--<![endif]-->
-<head>
+<head xmlns="http://www.w3.org/1999/html">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>AndroidStarterKit</title>
@@ -30,7 +30,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="http://127.0.0.1:8080/">AndroidStarterKit - beta version</a>
+            <a class="brand" href="http://127.0.0.1:8181/">AndroidStarterKit - beta version</a>
             <ul class="nav pull-right">
                 <li><img id="github" src="img/github.ico"/></li>
                 <li><a href="https://github.com/lomoussw/androidstarterkit">Source</a></li>
@@ -41,6 +41,7 @@
 <div class="masthead">
     <div class="container">
         <div class="row">
+            <img class="logo" src="img/header.png" />
             <p class="catchword">
                 Start your next <span>Android</span> app in 10 seconds.
             </p>
@@ -67,14 +68,15 @@
 </div>
 <div class="container pagination-centered" id="github-request">
     Want to push your project to <strong>Github</strong>?
-    <!--<a href="https://github.com/login/oauth/authorize?client_id=7073b373c6eb8f8a289a&scope=repo">Connect to Github</a>-->
     <a href="https://github.com/login/oauth/authorize?client_id=cd47cb280600fcf66439&scope=repo">Connect to Github</a>
+    first.<br />
+    Want to push your project to <strong>Bitbucket</strong>?
+    <a href="http://127.0.0.1:8181/android/#">Connect to BitBucket</a>
     first.
 </div>
 <div class="container libraries">
 <div class="row">
-    <!--http://ws.androidkickstartr.com-->
-    <form id="kickstartr-form" class="form-horizontal" method="POST" action="http://127.0.0.1:8080/androidstarter-ws/builder">
+    <form id="kickstartr-form" class="form-horizontal" method="POST" action="http://127.0.0.1:8181/android/builder">
         <input type="hidden" id="accessToken" name="accessToken"/>
 
         <div class="span12">

@@ -45,7 +45,7 @@ public class FileHelper {
 	}
 
 	private String getFinalPath() {
-		return TARGET + "/" + applicationName + "-Androidstarter";
+		return TARGET + "/" + applicationName + "-AndroidStarterKit";
 	}
 
 	private String getProjectPath() {

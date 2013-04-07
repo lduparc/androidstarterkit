@@ -27,7 +27,7 @@ public class KickstartrNonMavenTest {
 	@Before
 	public void tearUp() {
 		builder = new AppDetails.Builder().//
-				packageName("com.androidkickstartr.app").//
+				packageName("com.androidstarterkit.app").//
 				name("MyApp").//
 				activity("MainActivity").//
 				activityLayout("activity_main").//

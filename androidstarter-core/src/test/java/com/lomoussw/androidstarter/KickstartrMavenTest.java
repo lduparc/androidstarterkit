@@ -33,7 +33,7 @@ public class KickstartrMavenTest {
 	@Before
 	public void before() {
 		builder = new AppDetails.Builder().//
-				packageName("com.androidkickstartr.app").//
+				packageName("com.androidstarterkit.app").//
 				name("MyApp").//
 				activity("MainActivity").//
 				activityLayout("activity_main").//
@@ -51,12 +51,12 @@ public class KickstartrMavenTest {
 	private void buildWithMaven() {
 		InvocationRequest request = new DefaultInvocationRequest();
 
-		File pom = new File("generated/MyApp-AndroidKickstartr/MyApp/pom.xml");
+		File pom = new File("generated/MyApp-AndroidStarterKit/MyApp/pom.xml");
 		Assert.assertNotNull(pom);
 		Assert.assertTrue(pom.exists());
 		request.setPomFile(pom);
 
-		File baseDir = new File("generated/MyApp-AndroidKickstartr/MyApp");
+		File baseDir = new File("generated/MyApp-AndroidStarterKit/MyApp");
 		Assert.assertNotNull(baseDir);
 		Assert.assertTrue(baseDir.exists());
 		request.setBaseDirectory(baseDir);
