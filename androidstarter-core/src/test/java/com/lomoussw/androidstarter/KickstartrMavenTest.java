@@ -37,9 +37,10 @@ public class KickstartrMavenTest {
 				name("MyApp").//
 				activity("MainActivity").//
 				activityLayout("activity_main").//
-				minSdk(8).//
+				minSdk(7).//
 				targetSdk(16).//
-				permissions(new ArrayList<String>());
+                maxSdk(17).//
+                permissions(new ArrayList<String>());
 	}
 
 	@After

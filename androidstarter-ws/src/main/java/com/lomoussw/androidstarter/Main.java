@@ -83,7 +83,9 @@ public class Main {// extends HttpServlet {
                        @FormParam("name") String name,//
                        @FormParam("activity") String activity,//
                        @FormParam("activityLayout") String activityLayout,//
-
+                       @FormParam("sdkTarget") int sdkTarget,//
+                       @FormParam("sdkMinTarget") int sdkMinTarget,//
+                       @FormParam("sdkMaxTarget") int sdkMaxTarget,//
                        // Github access token
                        @FormParam("accessToken") String accessToken//
     ) {
@@ -100,6 +102,22 @@ public class Main {// extends HttpServlet {
         if (StringUtils.isEmpty(packageName)) {
             packageName = "com.androidstarter.app";
         }
+        if (sdkMinTarget < 7 || sdkMinTarget > 17) {
+            sdkMinTarget = 7;
+        }
+
+        if (sdkTarget < 7 || sdkTarget > 17) {
+            sdkTarget = 17;
+        }
+
+        if (sdkMaxTarget < sdkMinTarget || sdkMaxTarget < sdkTarget || sdkMaxTarget > 17) {
+            sdkMaxTarget = sdkTarget;
+        }
+
+        if (sdkMinTarget > sdkTarget) {
+            sdkMinTarget = sdkTarget;
+        }
+
         if (StringUtils.isEmpty(name)) {
             name = "MyApplication";
         }
@@ -125,8 +143,9 @@ public class Main {// extends HttpServlet {
                 name(name).//
                 activity(activity).//
                 activityLayout(activityLayout).//
-                minSdk(8).//
-                targetSdk(16).//
+                minSdk(sdkMinTarget).//
+                targetSdk(sdkTarget).//
+                maxSdk(sdkMaxTarget).//
                 permissions(new ArrayList<String>()).//
 
                 // Libraries
