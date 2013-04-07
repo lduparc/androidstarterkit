@@ -26,6 +26,10 @@ public class KickstartrNonMavenTest {
 
 	@Before
 	public void tearUp() {
+        ArrayList<String> languages = new ArrayList<String>();
+        languages.add("fr_FR");
+        languages.add("it_IT");
+
 		builder = new AppDetails.Builder().//
 				packageName("com.androidstarterkit.app").//
 				name("MyApp").//
@@ -34,6 +38,7 @@ public class KickstartrNonMavenTest {
 				minSdk(7).//
 				targetSdk(16).//
                 maxSdk(17).//
+                languages(languages).//
                 permissions(new ArrayList<String>());
 	}
 
@@ -55,6 +60,17 @@ public class KickstartrNonMavenTest {
 	public void generateProject_proguard() {
 		appDetails = builder.//
 				proguard(true).//
+				build();
+
+		File file = launchKickstartr();
+		Assert.assertNotNull(file);
+
+	}
+
+	@Test
+	public void generateProject_custom_app() {
+		appDetails = builder.//
+                customApp(true). //
 				build();
 
 		File file = launchKickstartr();
@@ -337,8 +353,11 @@ public class KickstartrNonMavenTest {
 	}
 
 	@Test
-	public void generateProject_abs_list_aa_rest_acra_nine_viewpager_proguard() {
-		appDetails = builder.//
+	public void generateProject_abs_list_aa_rest_acra_nine_viewpager_proguard_customapp() {
+        ArrayList<String> languages = new ArrayList<String>();
+        languages.add("fr_FR");
+
+        appDetails = builder.//
 				actionBarSherlock(true). //
 				listNavigation(true). //
 				androidAnnotations(true). //
@@ -347,14 +366,16 @@ public class KickstartrNonMavenTest {
 				nineOldAndroids(true). //
 				viewPager(true). //
 				proguard(true).//
-				build();
+                customApp(true). //
+                languages(languages).
+                build();
 
 		File file = launchKickstartr();
 		Assert.assertNotNull(file);
 	}
 
 	@Test
-	public void generateProject_abs_list_rest_acra_nine_viewpager_roboguice_proguard() {
+	public void generateProject_abs_list_rest_acra_nine_viewpager_roboguice_proguard_customapp() {
 		appDetails = builder.//
 				actionBarSherlock(true). //
 				listNavigation(true). //
@@ -364,7 +385,8 @@ public class KickstartrNonMavenTest {
 				viewPager(true). //
 				roboguice(true). //
 				proguard(true).//
-				build();
+                customApp(true). //
+                build();
 
 		File file = launchKickstartr();
 		Assert.assertNotNull(file);

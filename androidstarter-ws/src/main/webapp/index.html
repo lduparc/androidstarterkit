@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js" ></script>
+    <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
@@ -41,7 +41,8 @@
 <div class="masthead">
     <div class="container">
         <div class="row">
-            <img class="logo" src="img/header.png" />
+            <img class="logo" src="img/header.png"/>
+
             <p class="catchword">
                 Start your next <span>Android</span> app in 10 seconds.
             </p>
@@ -69,123 +70,303 @@
 <div class="container pagination-centered" id="github-request">
     Want to push your project to <strong>Github</strong>?
     <a href="https://github.com/login/oauth/authorize?client_id=cd47cb280600fcf66439&scope=repo">Connect to Github</a>
-    first.<br />
+    first.<br/>
     Want to push your project to <strong>Bitbucket</strong>?
     <a href="http://127.0.0.1:8181/android/#">Connect to BitBucket</a>
     first.
-    <!--Want to find <strong>Android SDK</strong>?-->
-    <!--<a href="http://127.0.0.1:8181/android/sdk">Get Android SDK</a> first.-->
 </div>
 <div class="container libraries">
 <div class="row">
-    <form id="kickstartr-form" class="form-horizontal" method="POST" action="http://127.0.0.1:8181/android/builder">
-        <input type="hidden" id="accessToken" name="accessToken"/>
+<form id="kickstartr-form" class="form-horizontal" method="POST" action="http://127.0.0.1:8181/android/builder">
+<input type="hidden" id="accessToken" name="accessToken"/>
 
-        <div class="span12">
-            <h1>1. Parameters</h1>
+<div class="span12">
+    <h1>1. Parameters</h1>
 
-            <div class="span5 parameters fix">
-                <div class="control-group">
-                    <label class="control-label">
-                        Application name:
-                    </label>
+    <div class="span5 parameters fix">
+        <div class="control-group">
+            <label class="control-label">
+                Application name:
+            </label>
 
-                    <div class="controls">
-                        <input type="text" placeholder="MyApplication" name="name"/>
-                        <span class="help-inline">Use simple characters a-z, A-Z, 0-9.</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">
-                        Package name:
-                    </label>
-
-                    <div class="controls">
-                        <input type="text" placeholder="com.lomoussw.app" name="packageName"/>
-                        <span class="help-inline">Use simple characters a-z, A-Z, 0-9 separated by dots.</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Target sdk:</label>
-
-                    <div class="controls">
-                        <input type="text" placeholder="7" name="sdkTarget"/>
-                        <span class="help-inline">Select Android SDK Target ( API Level )</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Min sdk:</label>
-
-                    <div class="controls">
-                        <input type="text" placeholder="7" name="sdkMin"/>
-                        <span class="help-inline">Select minimum Android SDK ( API Level )</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Max sdk:</label>
-
-                    <div class="controls">
-                        <input type="text" placeholder="7" name="sdkMax"/>
-                        <span class="help-inline">Select maximum Android SDK ( API Level )</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">
-                        Main activity name:
-                    </label>
-
-                    <div class="controls">
-                        <input type="text" placeholder="MainActivity" name="activity"/>
-                        <span class="help-inline">Use simple characters a-z, A-Z, 0-9.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="span5 offset1 parameters ">
-                <div class="control-group">
-                    <label class="control-label">
-                        Eclipse as IDE:
-                    </label>
-
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="eclipse" value="true" checked>Yes</input>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="eclipse" value="false">No</input>
-                        </label>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">
-                        Add a <a href="http://developer.android.com/tools/help/proguard.html">proguard</a>
-                        configuration:
-                    </label>
-
-                    <div class="controls">
-                        <label class="radio">
-                            <input type="radio" name="proguard" value="true">Yes</input>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="proguard" value="false" checked>No</input>
-                        </label>
-                    </div>
-                </div>
+            <div class="controls">
+                <input type="text" placeholder="MyApplication" name="name"/>
+                <span class="help-inline">Use simple characters a-z, A-Z, 0-9.</span>
             </div>
         </div>
+        <div class="control-group">
+            <label class="control-label">
+                Package name:
+            </label>
+
+            <div class="controls">
+                <input type="text" placeholder="com.lomoussw.app" name="packageName"/>
+                <span class="help-inline">Use simple characters a-z, A-Z, 0-9 separated by dots.</span>
+            </div>
+        </div>
+
+        <!--SDK-->
+        <div class="control-group">
+            <label class="control-label">Target sdk:</label>
+
+            <div class="controls">
+                <input type="text" placeholder="7" name="sdkTarget"/>
+                <span class="help-inline">Select Android SDK Target ( API Level )</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Min sdk:</label>
+
+            <div class="controls">
+                <input type="text" placeholder="7" name="sdkMinTarget"/>
+                <span class="help-inline">Select minimum Android SDK ( API Level )</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Max sdk:</label>
+
+            <div class="controls">
+                <input type="text" placeholder="7" name="sdkMaxTarget"/>
+                <span class="help-inline">Select maximum Android SDK ( API Level )</span>
+            </div>
+        </div>
+
+        <!--ACTIVITY-->
+        <div class="control-group">
+            <label class="control-label">
+                Main activity name:
+            </label>
+
+            <div class="controls">
+                <input type="text" placeholder="MainActivity" name="activity"/>
+                <span class="help-inline">Use simple characters a-z, A-Z, 0-9.</span>
+            </div>
+        </div>
+    </div>
+    <div class="span5 offset1 parameters ">
+        <!--customApp-->
+        <div class="control-group">
+            <label class="control-label">Custom Android Application:</label>
+
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="customApp" value="true">Yes</input>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="customApp" value="true" checked>No</input>
+                </label>
+            </div>
+        </div>
+        <!--eclipse-->
+        <div class="control-group">
+            <label class="control-label">
+                Eclipse as IDE:
+            </label>
+
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="eclipse" value="true" checked>Yes</input>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="eclipse" value="false">No</input>
+                </label>
+            </div>
+        </div>
+        <!--proguard-->
+        <div class="control-group">
+            <label class="control-label">
+                Add a <a href="http://developer.android.com/tools/help/proguard.html">proguard</a>
+                configuration:
+            </label>
+
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="proguard" value="true">Yes</input>
+                </label>
+                <label class="radio">
+                    <input type="radio" name="proguard" value="false" checked>No</input>
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="span12" class="btn-group" data-toggle="buttons-radio">
+        <h1>2. Language(s) ? <a data-toggle="collapse" data-target="#lang" class="label label-success">Choose</a></h1>
+
+        <!--<div id="lang" class="collapse out">-->
+        <div class="maven span5 library">
+
+            <label class="checkbox"><input type="checkbox" name="ar_EG" value="true">Arabic, Egypt
+                <span>ar_EG (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="ar_IL" value="true">Arabic, Israel
+                <span>ar_IL (New)</span></input> </label>
+
+            <label class="checkbox"><input type="checkbox" name="bg_BG" value="true">Bulgarian, Bulgaria <span>bg_BG (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="cs_CZ" value="true">Czech, Czech Republic <span>cs_CZ (New)</span></input>
+            </label>
+
+            <label class="checkbox"><input type="checkbox" name="ca_ES" value="true">Catalan, Spain
+                <span>ca_ES (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="zh_CN" value="true">Chinese, PRC
+                <span>zh_CN (New)</span></input></label>
+
+            <label class="checkbox"><input type="checkbox" name="zh_TW" value="true">Chinese, Taiwan
+                <span>zh_TW (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="hr_HR" value="true">Croatian, Croatia
+                <span>hr_HR (New)</span></input></label>
+
+            <label class="checkbox"><input type="checkbox" name="da_DK" value="true">Danish, Denmark
+                <span>da_DK (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="nl_BE" value="true">Dutch, Belgium
+                <span>nl_BE (New)</span></input></label>
+
+            <label class="checkbox"><input type="checkbox" name="nl_NL" value="true">Dutch,
+                Netherlands <span>nl_NL (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_US" value="true">English,
+                US <span>en_US (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="en_AU" value="true">English,
+                Australia <span>en_AU (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_GB" value="true">English,
+                Britain <span>en_GB (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_CA" value="true">English,
+                Canada <span>en_CA (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_NZ" value="true">English, New
+                Zealand <span>en_NZ (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_SG" value="true">English,
+                Singapore <span>en_SG (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_IN" value="true">English,
+                India <span>en_IN (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="en_IE" value="true">English,
+                Ireland <span>en_IE (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="en_ZA" value="true">English,
+                Zimbabwe <span>en_ZA (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="fi_FI" value="true">Finnish,
+                Finland <span>fi_FI (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="fr_BE" value="true">French,
+                Belgium <span>fr_BE (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="fr_CA" value="true">French,
+                Canada <span>fr_CA (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="fr_FR" value="true">French,
+                France <span>fr_FR (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="fr_CH" value="true">French,
+                Switzerland <span>fr_CH (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="de_DE" value="true">German,
+                Germany <span>de_DE (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="de_AT" value="true">German,
+                Austria <span>de_AT (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="de_LI" value="true">German,
+                Liechtenstein <span>de_LI (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="de_CH" value="true">German,
+                Switzerland <span>de_CH (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="el_GR" value="true">Greek,
+                Greece <span>el_GR (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="iw_IL" value="true">Hebrew,
+                Israel <span>iw_IL (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="hi_IN" value="true">Hindi, India
+                <span>hi_IN (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="hu_HU" value="true">Hungarian,
+                Hungary <span>hu_HU (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="in_ID" value="true">Indonesian,
+                Indonesia <span>in_ID (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="it_IT" value="true">Italian,
+                Italy <span>it_IT (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="it_CH" value="true">Italian,
+                Switzerland <span>it_CH (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="ja_JP"
+                                           value="true">Japanese <span>ja_JP (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="ko_KR"
+                                           value="true">Korean <span>ko_KR (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="lv_LV" value="true">Latvian,
+                Latvia <span>lv_LV (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="lt_LT" value="true">Lithuanian,
+                Lithuania <span>lt_LT (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="nb_NO"
+                                           value="true">Norwegian-Bokmol <span>nb_NO (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="pl_PL"
+                                           value="true">Polish <span>pl_PL (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="pt_BR" value="true">Portuguese,
+                Brazil <span>pt_BR (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="pt_PT" value="true">Portuguese,
+                Portugal <span>pt_PT (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="ro_RO" value="true">Romanian,
+                Romania <span>ro_RO (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="ru_RU" value="true">Russian
+                <span>ru_RU (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="sr_RS"
+                                           value="true">Serbian <span>sr_RS (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="es_ES"
+                                           value="true">Spanish <span>es_ES (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="sk_SK" value="true">Slovak,
+                Slovakia <span>sk_SK (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="sl_SI" value="true">Slovenian,
+                Slovenia <span>sl_SI (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="es_US" value="true">Spanish,
+                US <span>es_US (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="sv_SE" value="true">Swedish,
+                Sweden <span>sv_SE (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="tl_PH" value="true">Tagalog,
+                Philippines <span>tl_PH (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="th_TH" value="true">Thai,
+                Thailand <span>th_TH (New)</span></input></label>
+            <label class="checkbox"><input type="checkbox" name="tr_TR" value="true">Turkish,
+                Turkey <span>tr_TR (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="uk_UA" value="true">Ukrainian,
+                Ukraine <span>uk_UA (New)</span></input>
+            </label>
+            <label class="checkbox"><input type="checkbox" name="vi_VN" value="true">Vietnamese,
+                Vietnam <span>vi_VN (New)</span></input>
+            </label>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="span12">
-        <h1>2. Maven ?</h1>
+        <h1>3. Maven ?</h1>
 
         <div class="maven span5 library">
             <label class="checkbox">
                 <input type="checkbox" name="maven" value="true">Android-Maven-Plugin <span>3.5.0</span></input>
             </label>
 
-            <div class="pull-right"><a data-toggle="collapse" data-target="#amp"
-                                       class="label label-success">Effect</a><a
-                    href="http://code.google.com/p/maven-android-plugin/" target="_blank"
-                    class="label label-info">Doc</a></div>
+            <div class="pull-right">
+                <a data-toggle="collapse" data-target="#amp" class="label label-success">Effect</a>
+                <a href="http://code.google.com/p/maven-android-plugin/" target="_blank"
+                   class="label label-info">Doc</a>
+            </div>
             <span class="help-block">Easy to use Maven plugin for Android!</span>
 
             <div id="amp" class="collapse out">
@@ -197,7 +378,7 @@
 </div>
 <div class="row">
     <div class="span12" class="btn-group" data-toggle="buttons-radio">
-        <h1>3. Choose your libraries
+        <h1>4. Choose your libraries
             <button class="btn btn-small btn-danger" type="button" id="basic">
                 Basic preset
             </button>

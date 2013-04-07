@@ -66,8 +66,16 @@ public class FileHelper {
 		return getResource("res/");
 	}
 
+	public File getLangDir(String code) throws IOException {
+		return getResource("lang/values-" + code);
+	}
+
+    public File getTargetAndroidLangResDir(String code) throws IOException {
+        return getDir(getProjectPath() + "/res/values-" + code);
+    }
+
 	public File getTargetAndroidResDir() throws IOException {
-		return getDir(getProjectPath() + "/res");
+		return getDir(getProjectPath() + "/res/");
 	}
 
 	public File getTargetProjectDir() {
@@ -124,10 +132,6 @@ public class FileHelper {
 		return createFile(getProjectPath() + "/res/values/styles.xml");
 	}
 
-	public File getTargetStylesFileFR() throws IOException {
-		return createFile(getProjectPath() + "/res/values-fr/styles.xml");
-	}
-
 	public File getTargetActivityMainFile() throws IOException {
 		return createFile(getProjectPath() + "/res/layout/activity_main.xml");
 	}
@@ -146,10 +150,6 @@ public class FileHelper {
 
 	public File getTargetStringsFile() throws IOException {
 		return createFile(getProjectPath() + "/res/values/strings.xml");
-	}
-
-	public File getTargetStringsFileFR() throws IOException {
-		return createFile(getProjectPath() + "/res/values-fr/strings.xml");
 	}
 
 	public File getTargetEclipseJdtAptCorePrefsFile() throws IOException {

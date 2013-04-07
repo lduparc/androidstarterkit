@@ -38,7 +38,6 @@ public class TemplatesFileHelper {
 		params.put("applicationClassName", appDetails.getApplicationClassName());
 
 		processTemplate(cfg, params, "Strings.ftl", fileHelper.getTargetStringsFile());
-		processTemplate(cfg, params, "Strings.ftl", fileHelper.getTargetStringsFileFR());
 		LOGGER.debug("strings.xml created");
 
 		if (appDetails.isAndroidAnnotations()) {
@@ -49,8 +48,8 @@ public class TemplatesFileHelper {
 		LOGGER.debug("AndroidManifest.xml created");
 
 		processTemplate(cfg, params, "Styles.ftl", fileHelper.getTargetStylesFile());
-		processTemplate(cfg, params, "Styles.ftl", fileHelper.getTargetStylesFileFR());
 		LOGGER.debug("styles.xml created");
+
 
 		processTemplate(cfg, params, "ActivityMain.ftl", fileHelper.getTargetActivityMainFile());
 		LOGGER.debug("activity_main.xml created");

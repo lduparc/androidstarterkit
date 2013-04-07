@@ -132,12 +132,12 @@ jQuery(document).ready(function($) {
       var $activityValidation = /^[a-zA-Z0-9]*$/;
 
       var $packageName = $("input:text[name=packageName]").val();
-      var $targetSdk = $("input:text[name=targetSdk]").val();
-      var $minSdk = $("input:text[name=minSdk]").val();
-      var $maxSdk = $("input:text[name=maxSdk]").val();
+      var $targetSdk = $("input:text[name=sdkTarget]").val();
+      var $minSdk = $("input:text[name=sdkMinTarget]").val();
+      var $maxSdk = $("input:text[name=sdkMaxTarget]").val();
 
       var $packageValidation = /^([A-Za-z_]{1}[a-zA-Z0-9_]*(\.[a-zA-Z_]{1}[a-zA-Z0-9_]*)*)$/;
-      var $sdkValidation = /^([0-9][0-9])$/;
+      var $sdkValidation = /^([0-9]?[0-9])$/;
 
       if ($packageName != "" && !$packageValidation.test($packageName)) {
         $("span[class=help-inline]").show();

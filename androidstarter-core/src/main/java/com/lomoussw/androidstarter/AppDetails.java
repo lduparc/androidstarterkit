@@ -16,6 +16,7 @@ public class AppDetails {
     private int targetSdk;
     private int maxSdk;
     private List<String> permissions;
+    private List<String> languages;
     private String activity;
     private String activityLayout;
     private boolean actionBarSherlock;
@@ -32,6 +33,7 @@ public class AppDetails {
     private boolean acra;
     private boolean eclipse;
     private boolean proguard;
+    private boolean customApp;
     private boolean git;
 
     public String getPackageName() {
@@ -56,6 +58,10 @@ public class AppDetails {
 
     public List<String> getPermissions() {
         return permissions;
+    }
+
+    public List<String> getLanguages() {
+        return languages;
     }
 
     public String getActivity() {
@@ -174,12 +180,22 @@ public class AppDetails {
         return proguard;
     }
 
+    public boolean isCustomApp() {
+        return customApp;
+    }
+
     public boolean isGit() {
         return git;
     }
 
     @Override
     public String toString() {
+        StringBuilder langs = new StringBuilder();
+        if (languages != null && languages.size() > 0) {
+            for (String lang : languages) {
+                langs.append(lang + ",");
+            }
+        }
         return "State [actionBarSherlock=" + actionBarSherlock + //
                 ", listNavigation=" + listNavigation + //
                 ", tabNavigation=" + tabNavigation + //
@@ -194,10 +210,12 @@ public class AppDetails {
                 ", acra=" + acra + //
                 ", eclipse=" + eclipse + //
                 ", proguard=" + proguard + //
+                ", customApp=" + customApp + //
                 ", minSdk=" + minSdk + //
                 ", maxSdk=" + maxSdk + //
                 ", targetSdk=" + targetSdk + //
-                ", git=" + git + //
+                ", langs=" + langs.toString() + //
+                " git=" + git + //
                 "]";
 
     }
@@ -245,6 +263,11 @@ public class AppDetails {
 
         public Builder permissions(List<String> permissions) {
             state.permissions = permissions;
+            return this;
+        }
+
+        public Builder languages(List<String> langs) {
+            state.languages = langs;
             return this;
         }
 
@@ -333,6 +356,11 @@ public class AppDetails {
 
         public Builder proguard(boolean proguard) {
             state.proguard = proguard;
+            return this;
+        }
+
+        public Builder customApp(boolean customApp) {
+            state.customApp = customApp;
             return this;
         }
 

@@ -32,14 +32,14 @@ public class ApplicationGenerator implements Generator {
 
 			jClass._extends(ref.application());
 
-			jClass.annotate(ref.reportsCrashes()).param("formKey", "YOUR_FORM_KEY");
+            if (this.appDetails.isCustomApp()) jClass.annotate(ref.reportsCrashes()).param("formKey", "YOUR_FORM_KEY");
 
 			JMethod onCreateMethod = jClass.method(JMod.PUBLIC, jCodeModel.VOID, "onCreate");
 			onCreateMethod.annotate(ref.override());
 
 			JBlock onCreateMethodBody = onCreateMethod.body();
 
-			onCreateMethodBody.staticInvoke(ref.acra(), "init").arg(JExpr._this());
+            if (this.appDetails.isCustomApp()) onCreateMethodBody.staticInvoke(ref.acra(), "init").arg(JExpr._this());
 
 			onCreateMethodBody.invoke(JExpr._super(), "onCreate");
 

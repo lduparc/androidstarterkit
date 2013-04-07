@@ -32,6 +32,10 @@ public class KickstartrMavenTest {
 
 	@Before
 	public void before() {
+        ArrayList<String> languages = new ArrayList<String>();
+        languages.add("fr_FR");
+        languages.add("it_IT");
+
 		builder = new AppDetails.Builder().//
 				packageName("com.androidstarterkit.app").//
 				name("MyApp").//
@@ -40,7 +44,8 @@ public class KickstartrMavenTest {
 				minSdk(7).//
 				targetSdk(16).//
                 maxSdk(17).//
-                permissions(new ArrayList<String>());
+                permissions(new ArrayList<String>()).//
+                languages(languages);
 	}
 
 	@After
@@ -103,6 +108,17 @@ public class KickstartrMavenTest {
 		appDetails = builder.//
 				maven(true). //
 				proguard(true).//
+				build();
+
+		File file = launchKickstartr();
+		Assert.assertNotNull(file);
+	}
+
+	@Test
+	public void generateProject_maven_custom_app() {
+		appDetails = builder.//
+				maven(true). //
+                customApp(true). //
 				build();
 
 		File file = launchKickstartr();
@@ -406,8 +422,8 @@ public class KickstartrMavenTest {
 	}
 
 	@Test
-	public void generateProject_maven_abs_list_aa_rest_acra_nine_viewpager_proguard() {
-		appDetails = builder.//
+	public void generateProject_maven_abs_list_aa_rest_acra_nine_viewpager_proguard_customapp() {
+        appDetails = builder.//
 				maven(true). //
 				actionBarSherlock(true). //
 				listNavigation(true). //
@@ -417,14 +433,15 @@ public class KickstartrMavenTest {
 				nineOldAndroids(true). //
 				viewPager(true). //
 				proguard(true). //
-				build();
+                customApp(true). //
+                build();
 
 		File file = launchKickstartr();
 		Assert.assertNotNull(file);
 	}
 
 	@Test
-	public void generateProject_maven_abs_list_rest_acra_nine_viewpager_roboguice_proguard() {
+	public void generateProject_maven_abs_list_rest_acra_nine_viewpager_roboguice_proguard_customapp() {
 		appDetails = builder.//
 				maven(true). //
 				actionBarSherlock(true). //
@@ -434,6 +451,7 @@ public class KickstartrMavenTest {
 				nineOldAndroids(true). //
 				viewPager(true). //
 				roboguice(true). //
+                customApp(true). //
 				proguard(true). //
 				build();
 

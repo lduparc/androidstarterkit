@@ -1,15 +1,9 @@
 package com.lomoussw.androidstarter;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.lomoussw.androidstarter.util.RefHelper;
-import com.lomoussw.androidstarter.util.ResourcesUtils;
-import com.lomoussw.androidstarter.util.TemplatesFileHelper;
-import com.lomoussw.androidstarter.util.Zipper;
+import com.lomoussw.androidstarter.generator.*;
+import com.lomoussw.androidstarter.util.*;
+import com.sun.codemodel.JCodeModel;
+import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
@@ -18,37 +12,29 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lomoussw.androidstarter.generator.ApplicationGenerator;
-import com.lomoussw.androidstarter.generator.Generator;
-import com.lomoussw.androidstarter.generator.MainActivityGenerator;
-import com.lomoussw.androidstarter.generator.RestClientGenerator;
-import com.lomoussw.androidstarter.generator.SampleFragmentGenerator;
-import com.lomoussw.androidstarter.generator.ViewPagerAdapterGenerator;
-import com.lomoussw.androidstarter.util.FileHelper;
-import com.lomoussw.androidstarter.util.GitHubber;
-import com.lomoussw.androidstarter.util.LibraryHelper;
-import com.sun.codemodel.JCodeModel;
-
-import freemarker.template.TemplateException;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Kickstartr {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(Kickstartr.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(Kickstartr.class);
+    private AppDetails appDetails;
+    private JCodeModel jCodeModel;
+    private FileHelper fileHelper;
 
-	private AppDetails appDetails;
-	private JCodeModel jCodeModel;
-	private FileHelper fileHelper;
+    public Kickstartr(AppDetails appDetails) {
+        this.appDetails = appDetails;
 
-	public Kickstartr(AppDetails appDetails) {
-		this.appDetails = appDetails;
+        jCodeModel = new JCodeModel();
+        fileHelper = new FileHelper(appDetails.getName(), appDetails.getPackageName(), appDetails.isMaven());
 
-		jCodeModel = new JCodeModel();
-		fileHelper = new FileHelper(appDetails.getName(), appDetails.getPackageName(), appDetails.isMaven());
+        extractResources(appDetails);
+    }
 
-		extractResources(appDetails);
-	}
-
-	public File zipify() {
+    public File zipify() {
         createDirectory();
         File zipFile = null;
         try {
@@ -64,7 +50,7 @@ public class Kickstartr {
         LOGGER.debug("AndroidStarterKit generation done");
         return zipFile;
     }
-	
+
     public Repository githubify(String accessToken) throws IOException, GitAPIException {
         LOGGER.debug("Github creation started");
         createDirectory();
@@ -91,12 +77,12 @@ public class Kickstartr {
             List<String> permissions = appDetails.getPermissions();
             permissions.add("android.permission.INTERNET");
         }
-		try {
-			copyResDir();
-			LOGGER.debug("res dir copied.");
-		} catch (IOException e) {
-			LOGGER.error("problem occurs during the resources copying", e);
-		}
+        try {
+            copyResDir();
+            LOGGER.debug("res dir copied.");
+        } catch (IOException e) {
+            LOGGER.error("problem occurs during the resources copying", e);
+        }
 
         try {
             generateSourceCode();
@@ -110,6 +96,18 @@ public class Kickstartr {
             File sourceResDir = fileHelper.getResDir();
             FileUtils.copyDirectory(sourceResDir, androidResDir);
             LOGGER.debug("res dir copied.");
+
+            List<String> languages = appDetails.getLanguages();
+
+            if (languages != null && languages.size() > 0) {
+                LOGGER.debug("langs size " + languages.size());
+                for (String code : languages) {
+                    File sourceLangDir = fileHelper.getLangDir(code);
+                    File targetLangDir = fileHelper.getTargetAndroidLangResDir(code);
+                    FileUtils.copyDirectory(sourceLangDir, targetLangDir);
+                    LOGGER.debug("lang " + code + " dir copied.");
+                }
+            }
         } catch (IOException e) {
             LOGGER.error("problem occurs during the resources copying", e);
         }
@@ -158,66 +156,66 @@ public class Kickstartr {
     }
 
     private void generateSourceCode() throws IOException {
-		List<Generator> generators = new ArrayList<Generator>();
+        List<Generator> generators = new ArrayList<Generator>();
 
-		generators.add(new MainActivityGenerator(appDetails));
+        generators.add(new MainActivityGenerator(appDetails));
 
-		if (appDetails.isViewPager()) {
-			generators.add(new ViewPagerAdapterGenerator(appDetails));
-			generators.add(new SampleFragmentGenerator(appDetails));
-		}
+        if (appDetails.isViewPager()) {
+            generators.add(new ViewPagerAdapterGenerator(appDetails));
+            generators.add(new SampleFragmentGenerator(appDetails));
+        }
 
-		if (appDetails.isRestTemplate() && appDetails.isAndroidAnnotations()) {
-			generators.add(new RestClientGenerator(appDetails));
-		}
+        if (appDetails.isRestTemplate() && appDetails.isAndroidAnnotations()) {
+            generators.add(new RestClientGenerator(appDetails));
+        }
 
-		if (appDetails.isAcra()) {
-			generators.add(new ApplicationGenerator(appDetails));
-		}
+        if (appDetails.isCustomApp() || appDetails.isAcra()) {
+            generators.add(new ApplicationGenerator(appDetails));
+        }
 
-		RefHelper refHelper = new RefHelper(jCodeModel);
-		refHelper.r(appDetails.getR());
+        RefHelper refHelper = new RefHelper(jCodeModel);
+        refHelper.r(appDetails.getR());
 
-		for (Generator generator : generators) {
-			generator.generate(jCodeModel, refHelper);
-		}
-		jCodeModel.build(fileHelper.getTargetSourceDir());
-	}
-	
-	private void copyResDir() throws IOException {
-		File androidResDir = fileHelper.getTargetAndroidResDir();
-		File sourceResDir = fileHelper.getResDir();
-		
-		FileFilter filter = null;
-		List<IOFileFilter> fileFilters = new ArrayList<IOFileFilter>();
-		
-		if (!appDetails.isListNavigation() && !appDetails.isTabNavigation()) {
-			// Exclude arrays.xml from the copy
-			IOFileFilter resArraysFilter = FileFilterUtils.nameFileFilter("arrays.xml");
-		    IOFileFilter fileFilter = FileFilterUtils.notFileFilter(resArraysFilter);
-		    fileFilters.add(fileFilter);
-		}
-		
-		if (!appDetails.isViewPager()) {
-			// Exclude fragment_sample.xml from the copy
-			IOFileFilter resFragmentSampleFilter = FileFilterUtils.nameFileFilter("fragment_sample.xml");
-		    IOFileFilter fileFilter = FileFilterUtils.notFileFilter(resFragmentSampleFilter);
-		    fileFilters.add(fileFilter);
-		}
-		
-		if (!fileFilters.isEmpty()) {
-			filter = FileFilterUtils.and(fileFilters.toArray(new IOFileFilter[fileFilters.size()]));
-		}
-		
-		FileUtils.copyDirectory(sourceResDir, androidResDir, filter);
-	}
+        for (Generator generator : generators) {
+            generator.generate(jCodeModel, refHelper);
+        }
+        jCodeModel.build(fileHelper.getTargetSourceDir());
+    }
 
-	public void clean() {
-		File targetDir = fileHelper.getTargetDir();
-		try {
-			FileUtils.cleanDirectory(targetDir);
-		} catch (IOException e) {
-			LOGGER.error("a problem occured during target dir cleaning", e);
-		}
-	}
+    private void copyResDir() throws IOException {
+        File androidResDir = fileHelper.getTargetAndroidResDir();
+        File sourceResDir = fileHelper.getResDir();
+
+        FileFilter filter = null;
+        List<IOFileFilter> fileFilters = new ArrayList<IOFileFilter>();
+
+        if (!appDetails.isListNavigation() && !appDetails.isTabNavigation()) {
+            // Exclude arrays.xml from the copy
+            IOFileFilter resArraysFilter = FileFilterUtils.nameFileFilter("arrays.xml");
+            IOFileFilter fileFilter = FileFilterUtils.notFileFilter(resArraysFilter);
+            fileFilters.add(fileFilter);
+        }
+
+        if (!appDetails.isViewPager()) {
+            // Exclude fragment_sample.xml from the copy
+            IOFileFilter resFragmentSampleFilter = FileFilterUtils.nameFileFilter("fragment_sample.xml");
+            IOFileFilter fileFilter = FileFilterUtils.notFileFilter(resFragmentSampleFilter);
+            fileFilters.add(fileFilter);
+        }
+
+        if (!fileFilters.isEmpty()) {
+            filter = FileFilterUtils.and(fileFilters.toArray(new IOFileFilter[fileFilters.size()]));
+        }
+
+        FileUtils.copyDirectory(sourceResDir, androidResDir, filter);
+    }
+
+    public void clean() {
+        File targetDir = fileHelper.getTargetDir();
+        try {
+            FileUtils.cleanDirectory(targetDir);
+        } catch (IOException e) {
+            LOGGER.error("a problem occured during target dir cleaning", e);
+        }
+    }
 }
